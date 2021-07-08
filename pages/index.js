@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { parseRules } from "../utils/ruleParser";
 
 export default function Home(props) {
   return (
@@ -21,13 +22,10 @@ export default function Home(props) {
 }
 
 export async function getStaticProps() {
-  const response = await fetch(
-    "https://media.wizards.com/2021/downloads/MagicCompRules%2020210419.txt"
-  );
-  const data = await response.text();
+  const rules = await parseRules();
   return {
     props: {
-      rules: data,
+      rules: rules,
     },
   };
 }
