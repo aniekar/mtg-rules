@@ -14,3 +14,15 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.flexContainer {
+  display: flex;
+  margin: 1em;
+}
+
+.flexChild {
+  flex: 1;
+  border: 2px solid black;
+  padding: 1em;
+  margin: 0.2em;
+} 
