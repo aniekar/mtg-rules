@@ -1,27 +1,27 @@
 import { forwardRef } from "react";
 import Link from "next/link";
 
-const ChapterLink = forwardRef(({ href, chapter, selectRules }, ref) => {
+const ChapterLink = forwardRef(({ href, chapter, selectChapter }, ref) => {
   return (
-    <a href={href} onClick={() => selectRules(chapter.rules)} ref={ref}>
+    <a href={href} onClick={() => selectChapter(chapter)} ref={ref}>
       {chapter.name}
     </a>
   );
 });
 
-export default function TableOfContents({ rules, selectRules }) {
+export default function TableOfContents({ rules, selectChapter }) {
   return (
-    <div className="flexChild">
+    <div className="tableOfContents">
       <h2>Table of Contents</h2>
       <ul>
         {rules.map((section, i) => (
-          <li key={i}>
+          <li key={i}  className="section">
             {section.name}
-            <ul>
+            <ul className="chapterList">
               {section.chapters.map((chapter, i) => (
-                <li key={i}>
-                  <Link href="#" scroll={false} passHref>
-                    <ChapterLink chapter={chapter} selectRules={selectRules} />
+                <li key={i} className="chapter">
+                  <Link href="#" passHref>
+                    <ChapterLink chapter={chapter} selectChapter={selectChapter} />
                   </Link>
                 </li>
               ))}

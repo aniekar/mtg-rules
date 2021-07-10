@@ -20,14 +20,52 @@ header {
   margin: 0.2em;
 }
 
+h1 {
+  margin-bottom: 1em;
+}
+
 .flexContainer {
   display: flex;
   margin: 1em;
 }
 
-.flexChild {
+.tableOfContents {
   flex: 1;
   border: 2px solid black;
   padding: 1em;
   margin: 0.2em;
-} 
+  background-color: #f6f8ff;
+}
+
+.section {
+  margin: 0.5em 0;
+  padding: 0;
+  list-style: none;
+  font-size: 1.1em;
+  font-weight: 400;
+}
+
+.chapterList {
+  margin: 0.5em 0;
+  padding: 0.5em;
+  list-style: none;
+}
+
+.chapter {
+  margin: 0.5em;
+  font-size: 0.9em;
+  font-weight: 300;
+}
+
+.ruleListDiv {
+  flex: 2;
+  border: 2px solid black;
+  padding: 1em 1em 1em 1em;
+  margin: 0.2em;
+}
+
+.ruleLine {
+  margin: 1em;
+  list-style: none;
+  font-weight: 300;
+}

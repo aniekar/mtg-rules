@@ -8,17 +8,22 @@ import TableOfContents from "../components/table-of-contents";
 
 export default function Home(props) {
   const rules = JSON.parse(props.rules);
-
+  const [selectedChapter, setSelectedChapter] = useState({});
   const [selectedRules, setSelectedRules] = useState([]);
-  const selectRules = (rules) => setSelectedRules(rules);
+  const selectChapter = (chapter) => {
+    setSelectedChapter(chapter);
+    setSelectedRules(chapter.rules);
+  };
   const [filter, setFilter] = useState("");
   const clearFilter = () => setFilter("");
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
   };
-  const rulesToShow = selectedRules.filter((rule) =>
-    rule.toUpperCase().includes(filter.toUpperCase())
-  );
+  const rulesToShow = selectedChapter.rules
+    ? selectedRules.filter((rule) =>
+        rule.toUpperCase().includes(filter.toUpperCase())
+      )
+    : [];
 
   return (
     <div>
@@ -28,17 +33,20 @@ export default function Home(props) {
           name="description"
           content="Magic: The Gathering Comprehensive Rules"
         />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
         <header>
           <h1>Magic: The Gathering Comprehensive Rules</h1>
-          <FilterForm filter={filter} handleFilterChange={handleFilterChange} clearFilter={clearFilter}/>
+          <FilterForm
+            filter={filter}
+            handleFilterChange={handleFilterChange}
+            clearFilter={clearFilter}
+          />
         </header>
         <div className="flexContainer">
-          <TableOfContents rules={rules} selectRules={selectRules} />
-          <RuleList rules={rulesToShow} />
+          <TableOfContents rules={rules} selectChapter={selectChapter} />
+          <RuleList chapter={selectedChapter.name} rules={rulesToShow} />
         </div>
       </main>
     </div>
