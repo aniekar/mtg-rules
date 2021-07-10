@@ -21,10 +21,7 @@ export default function TableOfContents({ rules, selectRules }) {
               {section.chapters.map((chapter, i) => (
                 <li key={i}>
                   <Link href="#" scroll={false} passHref>
-                    <ChapterLink
-                      chapter={chapter}
-                      selectRules={selectRules}
-                    />
+                    <ChapterLink chapter={chapter} selectRules={selectRules} />
                   </Link>
                 </li>
               ))}
