@@ -9,6 +9,7 @@ import TableOfContents from "../components/table-of-contents";
 export default function Home(props) {
   const contents = JSON.parse(props.tableOfContents);
   const rules = JSON.parse(props.rules);
+
   const [selectedChapter, setSelectedChapter] = useState("");
   const [selectedRules, setSelectedRules] = useState([]);
   const selectChapter = (chapter) => {
@@ -17,11 +18,13 @@ export default function Home(props) {
       rules.filter((r) => r.code.substring(0, 3) == chapter.substring(0, 3))
     );
   };
+
   const [filter, setFilter] = useState("");
   const clearFilter = () => setFilter("");
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
   };
+  
   const rulesToShow = selectedRules.filter((rule) =>
     rule.ruleText.toUpperCase().includes(filter.toUpperCase())
   );
@@ -47,7 +50,11 @@ export default function Home(props) {
         </header>
         <div className="flexContainer">
           <TableOfContents contents={contents} selectChapter={selectChapter} />
-          <RuleList chapter={selectedChapter} rules={rulesToShow} />
+          <RuleList
+            chapter={selectedChapter}
+            rules={rulesToShow}
+            searchTerm={filter}
+          />
         </div>
       </main>
     </div>
