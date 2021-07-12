@@ -1,4 +1,4 @@
-import parse from "html-react-parser";
+import parse from 'html-react-parser';
 
 const Rule = ({ rule, searchTerm }) => {
   const highlightedText = rule.ruleText.replace(

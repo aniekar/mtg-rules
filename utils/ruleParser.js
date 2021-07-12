@@ -1,6 +1,6 @@
 const getDataAsLines = async function () {
   const response = await fetch(
-    "https://media.wizards.com/2021/downloads/MagicCompRules%2020210419.txt"
+    'https://media.wizards.com/2021/downloads/MagicCompRules%2020210419.txt'
   );
   const data = await response.text();
   const lines = data.split(/\r?\n/);
@@ -22,7 +22,7 @@ export async function constructTableOfContents() {
   });
 
   const sectionObject = {
-    name: "",
+    name: '',
     chapters: [],
   };
 
@@ -44,7 +44,7 @@ export async function constructTableOfContents() {
 
 export async function parseRules() {
   const lines = await getDataAsLines();
-  const rules = []
+  const rules = [];
   lines.forEach((line) => {
     if (/^\d{3}.\S{2,}/.test(line)) {
       const newRule = {};
@@ -53,5 +53,5 @@ export async function parseRules() {
       rules.push(newRule);
     }
   });
-  return JSON.stringify(rules)
+  return JSON.stringify(rules);
 }

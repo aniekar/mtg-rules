@@ -1,16 +1,16 @@
-import Head from "next/head";
-import { useState } from "react";
+import Head from 'next/head';
+import { useState } from 'react';
 
-import { constructTableOfContents, parseRules } from "../utils/ruleParser";
-import FilterForm from "../components/filter-form";
-import RuleList from "../components/rule-list";
-import TableOfContents from "../components/table-of-contents";
+import { constructTableOfContents, parseRules } from '../utils/ruleParser';
+import FilterForm from '../components/filter-form';
+import RuleList from '../components/rule-list';
+import TableOfContents from '../components/table-of-contents';
 
 export default function Home(props) {
   const contents = JSON.parse(props.tableOfContents);
   const rules = JSON.parse(props.rules);
 
-  const [selectedChapter, setSelectedChapter] = useState("");
+  const [selectedChapter, setSelectedChapter] = useState('');
   const [selectedRules, setSelectedRules] = useState([]);
   const selectChapter = (chapter) => {
     setSelectedChapter(chapter);
@@ -19,12 +19,12 @@ export default function Home(props) {
     );
   };
 
-  const [filter, setFilter] = useState("");
-  const clearFilter = () => setFilter("");
+  const [filter, setFilter] = useState('');
+  const clearFilter = () => setFilter('');
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
   };
-  
+
   const rulesToShow = selectedRules.filter((rule) =>
     rule.ruleText.toUpperCase().includes(filter.toUpperCase())
   );
