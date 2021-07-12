@@ -1,74 +1,57 @@
-const fetchData = async function () {
+const getDataAsLines = async function () {
   const response = await fetch(
     "https://media.wizards.com/2021/downloads/MagicCompRules%2020210419.txt"
   );
   const data = await response.text();
-
-  return data;
-};
-
-const constructChaptersWithRules = function (chapters, rules) {
-  const chapterObject = {
-    section: 0,
-    name: "",
-    rules: [],
-  };
-
-  const chapterObjects = [];
-  const ruleArray = Array.from(rules);
-
-  chapters.forEach((c) => {
-    const re = new RegExp(`^${c.substring(0, 3)}`);
-    const chapterRules = ruleArray.filter((r) => re.test(r));
-    const newChapter = Object.create(chapterObject);
-    newChapter.section = c.charAt(0);
-    newChapter.name = c;
-    newChapter.rules = chapterRules;
-    chapterObjects.push(newChapter);
-  });
-
-  return chapterObjects;
-};
-
-function constructSectionsWithChapters(sections, chapterObjects) {
-  const sectionObject = {
-    name: "",
-    chapters: [],
-  };
-  const sectionObjects = [];
-
-  sections.forEach((s) => {
-    const newSection = Object.create(sectionObject);
-    newSection.name = s;
-    newSection.chapters = chapterObjects.filter(
-      (c) => s.charAt(0) === c.section
-    );
-    sectionObjects.push(newSection);
-  });
-
-  return sectionObjects;
-}
-
-export async function parseRules() {
-  const data = await fetchData();
   const lines = data.split(/\r?\n/);
 
+  return lines;
+};
+
+export async function constructTableOfContents() {
+  const lines = await getDataAsLines();
   const sections = new Set();
   const chapters = new Set();
-  const rules = new Set();
 
   lines.forEach((line) => {
     if (/^\d{1}\.\s/.test(line) && sections.size < 9) {
       sections.add(line);
     } else if (/^\d{3}\.\s/.test(line)) {
       chapters.add(line);
-    } else if (/^\d{3}.\S/.test(line)) {
-      rules.add(line);
     }
   });
 
-  const chapterObjects = constructChaptersWithRules(chapters, rules);
-  const parsedRules = constructSectionsWithChapters(sections, chapterObjects);
+  const sectionObject = {
+    name: "",
+    chapters: [],
+  };
 
-  return JSON.stringify(parsedRules);
+  const sectionObjects = [];
+
+  const chapterArray = Array.from(chapters);
+
+  sections.forEach((s) => {
+    const newSection = Object.create(sectionObject);
+    newSection.name = s;
+    newSection.chapters = chapterArray.filter(
+      (c) => s.charAt(0) === c.charAt(0)
+    );
+    sectionObjects.push(newSection);
+  });
+
+  return JSON.stringify(sectionObjects);
+}
+
+export async function parseRules() {
+  const lines = await getDataAsLines();
+  const rules = []
+  lines.forEach((line) => {
+    if (/^\d{3}.\S{2,}/.test(line)) {
+      const newRule = {};
+      newRule.code = line.match(/^\d{3}.\S{2,}/)[0];
+      newRule.ruleText = line.substring(newRule.code.length + 1);
+      rules.push(newRule);
+    }
+  });
+  return JSON.stringify(rules)
 }

@@ -4,17 +4,17 @@ import Link from "next/link";
 const ChapterLink = forwardRef(({ href, chapter, selectChapter }, ref) => {
   return (
     <a href={href} onClick={() => selectChapter(chapter)} ref={ref}>
-      {chapter.name}
+      {chapter}
     </a>
   );
 });
 
-export default function TableOfContents({ rules, selectChapter }) {
+export default function TableOfContents({ contents, selectChapter }) {
   return (
     <div className="tableOfContents">
       <h2>Table of Contents</h2>
       <ul>
-        {rules.map((section, i) => (
+        {contents.map((section, i) => (
           <li key={i}  className="section">
             {section.name}
             <ul className="chapterList">

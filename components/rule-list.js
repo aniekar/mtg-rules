@@ -5,7 +5,7 @@ export default function RuleList({ chapter, rules }) {
       <ul>
         {rules.map((rule, i) => (
           <li key={i} className="ruleLine">
-            {rule}
+            <b>{rule.code}</b> {rule.ruleText}
           </li>
         ))}
       </ul>

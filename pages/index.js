@@ -1,29 +1,30 @@
 import Head from "next/head";
 import { useState } from "react";
 
-import { parseRules } from "../utils/ruleParser";
+import { constructTableOfContents, parseRules } from "../utils/ruleParser";
 import FilterForm from "../components/filter-form";
 import RuleList from "../components/rule-list";
 import TableOfContents from "../components/table-of-contents";
 
 export default function Home(props) {
+  const contents = JSON.parse(props.tableOfContents);
   const rules = JSON.parse(props.rules);
-  const [selectedChapter, setSelectedChapter] = useState({});
+  const [selectedChapter, setSelectedChapter] = useState("");
   const [selectedRules, setSelectedRules] = useState([]);
   const selectChapter = (chapter) => {
     setSelectedChapter(chapter);
-    setSelectedRules(chapter.rules);
+    setSelectedRules(
+      rules.filter((r) => r.code.substring(0, 3) == chapter.substring(0, 3))
+    );
   };
   const [filter, setFilter] = useState("");
   const clearFilter = () => setFilter("");
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
   };
-  const rulesToShow = selectedChapter.rules
-    ? selectedRules.filter((rule) =>
-        rule.toUpperCase().includes(filter.toUpperCase())
-      )
-    : [];
+  const rulesToShow = selectedRules.filter((rule) =>
+    rule.ruleText.toUpperCase().includes(filter.toUpperCase())
+  );
 
   return (
     <div>
@@ -45,8 +46,8 @@ export default function Home(props) {
           />
         </header>
         <div className="flexContainer">
-          <TableOfContents rules={rules} selectChapter={selectChapter} />
-          <RuleList chapter={selectedChapter.name} rules={rulesToShow} />
+          <TableOfContents contents={contents} selectChapter={selectChapter} />
+          <RuleList chapter={selectedChapter} rules={rulesToShow} />
         </div>
       </main>
     </div>
@@ -54,9 +55,11 @@ export default function Home(props) {
 }
 
 export async function getStaticProps() {
+  const tableOfContents = await constructTableOfContents();
   const rules = await parseRules();
   return {
     props: {
+      tableOfContents: tableOfContents,
       rules: rules,
     },
   };
