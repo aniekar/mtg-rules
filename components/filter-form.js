@@ -1,6 +1,6 @@
 const FilterForm = ({ filter, handleFilterChange, clearFilter }) => {
   return (
-    <div>
+    <div className="formDiv">
       <form>
         <input
           value={filter}

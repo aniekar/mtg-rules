@@ -1,4 +1,7 @@
 import parse from 'html-react-parser';
+import { useState } from 'react';
+
+import FilterForm from '../components/filter-form';
 
 const Rule = ({ rule, searchTerm }) => {
   const highlightedText = rule.text.replace(
@@ -12,14 +15,25 @@ const Rule = ({ rule, searchTerm }) => {
   );
 };
 
-export default function RuleList({ chapter, rules, searchTerm }) {
+export default function RuleList({ rules }) {
+  const [filter, setFilter] = useState('');
+  const clearFilter = () => setFilter('');
+  const handleFilterChange = (event) => {
+    setFilter(event.target.value);
+  };
+
+  const rulesToShow = rules.filter((rule) =>
+    rule.text.toUpperCase().includes(filter.toUpperCase())
+  );
+
   return (
     <div className="ruleListDiv">
-      <h2>{chapter}.</h2>
+      <FilterForm filter={filter} clearFilter={clearFilter} handleFilterChange={handleFilterChange}/>
+      {/* <h2>{chapter}.</h2> */}
       {rules && (
         <ul>
-          {rules.map((rule, i) => (
-            <Rule key={i} rule={rule} searchTerm={searchTerm} />
+          {rulesToShow.map((rule, i) => (
+            <Rule key={i} rule={rule} searchTerm={filter} />
           ))}
         </ul>
       )}

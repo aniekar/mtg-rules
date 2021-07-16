@@ -69,3 +69,7 @@ h1 {
   list-style: none;
   font-weight: 300;
 }
+
+.formDiv {
+  margin: 1em 1em 2em 3.5em;
+}
