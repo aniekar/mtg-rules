@@ -8,6 +8,7 @@ const Rule = ({ rule, searchTerm }) => {
     new RegExp(searchTerm, 'gi'),
     (match) => `<mark>${match}</mark>`
   );
+
   return (
     <li className="ruleLine">
       <b>{rule.number}</b> {parse(highlightedText)}
@@ -15,21 +16,29 @@ const Rule = ({ rule, searchTerm }) => {
   );
 };
 
-export default function RuleList({ rules }) {
+export default function RuleList({ rules, chapter }) {
   const [filter, setFilter] = useState('');
   const clearFilter = () => setFilter('');
-  const handleFilterChange = (event) => {
-    setFilter(event.target.value);
-  };
+  const handleFilterChange = (event) => setFilter(event.target.value);
 
-  const rulesToShow = rules.filter((rule) =>
-    rule.text.toUpperCase().includes(filter.toUpperCase())
-  );
+  const rulesToShow = rules
+    ? rules.filter((rule) =>
+        rule.text.toUpperCase().includes(filter.toUpperCase())
+      )
+    : [];
 
   return (
     <div className="ruleListDiv">
-      <FilterForm filter={filter} clearFilter={clearFilter} handleFilterChange={handleFilterChange}/>
-      {/* <h2>{chapter}.</h2> */}
+      {chapter && (
+        <h2>
+          {chapter.number}. {chapter.text}
+        </h2>
+      )}
+            <FilterForm
+        filter={filter}
+        clearFilter={clearFilter}
+        handleFilterChange={handleFilterChange}
+      />
       {rules && (
         <ul>
           {rulesToShow.map((rule, i) => (

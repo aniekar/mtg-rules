@@ -13,10 +13,10 @@ export default function Home({ tableOfContents }) {
 
 export async function getStaticProps() {
   const tableOfContents = await constructTableOfContents();
-  const parsedToC = JSON.parse(tableOfContents);
+
   return {
     props: {
-      tableOfContents: parsedToC,
+      tableOfContents: JSON.parse(JSON.stringify(tableOfContents)),
     },
   };
 }

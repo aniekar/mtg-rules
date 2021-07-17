@@ -1,6 +1,7 @@
 import {
   constructTableOfContents,
-  parseChapters,
+  getChapters,
+  getChapterByNumber,
   getRulesForChapter,
 } from '../../utils/ruleParser';
 import RuleList from '../../components/rule-list';
@@ -17,30 +18,26 @@ export default function ChapterPage({ chapter, rules, tableOfContents }) {
 
 export async function getStaticProps(context) {
   const tableOfContents = await constructTableOfContents();
-  const parsedToC = JSON.parse(tableOfContents);
+  const chapter = await getChapterByNumber(context.params.chapterNumber);
+  const rules = await getRulesForChapter(context.params.chapterNumber);
 
-  const chapterNumber = context.params.chapterNumber;
-
-  const rules = await getRulesForChapter(chapterNumber);
-  const parsedRules = JSON.parse(rules);
   return {
     props: {
-      tableOfContents: parsedToC,
-      rules: parsedRules,
-      chapter: chapterNumber,
+      tableOfContents: JSON.parse(JSON.stringify(tableOfContents)),
+      rules: JSON.parse(JSON.stringify(rules)),
+      chapter: JSON.parse(JSON.stringify(chapter)),
     },
   };
 }
 
 export async function getStaticPaths() {
-  const chapters = await parseChapters();
-  const chapterObjects = JSON.parse(chapters);
+  const chapters = await getChapters();
 
-  const paths = chapterObjects.map((chapter) => ({
+  const paths = chapters.map((chapter) => ({
     params: { chapterNumber: chapter.number },
   }));
   return {
     paths: paths,
-    fallback: 'blocking',
+    fallback: false,
   };
 }
