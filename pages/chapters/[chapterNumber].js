@@ -18,6 +18,7 @@ export default function ChapterPage({ chapter, rules, tableOfContents }) {
 
 export async function getStaticProps(context) {
   const tableOfContents = await constructTableOfContents();
+  const chapterNumber = context.params.chapterNumber
   const chapter = await getChapterByNumber(context.params.chapterNumber);
   const rules = await getRulesForChapter(context.params.chapterNumber);
 
@@ -34,7 +35,7 @@ export async function getStaticPaths() {
   const chapters = await getChapters();
 
   const paths = chapters.map((chapter) => ({
-    params: { chapterNumber: chapter.number },
+    params: { chapterNumber: `${chapter.number}` },
   }));
   return {
     paths: paths,

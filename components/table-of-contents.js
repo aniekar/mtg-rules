@@ -11,7 +11,7 @@ export default function TableOfContents({ contents }) {
             <ul className="chapterList">
               {section.chapters.map((chapter, i) => (
                 <li key={i} className="chapter">
-                  <Link href={`/${chapter.number}`}>
+                  <Link href={`/chapters/${chapter.number}`}>
                     <span>
                       {chapter.number}. {chapter.text}
                     </span>
