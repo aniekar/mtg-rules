@@ -1,4 +1,13 @@
 import Link from 'next/link';
+import { forwardRef } from 'react';
+
+const ChapterLink = forwardRef(({ onClick, href, chapter }, ref) => {
+  return (
+    <a href={href} onClick={onClick} ref={ref}>
+      {chapter.number}. {chapter.text}
+    </a>
+  );
+});
 
 export default function TableOfContents({ contents }) {
   return (
@@ -12,9 +21,7 @@ export default function TableOfContents({ contents }) {
               {section.chapters.map((chapter, i) => (
                 <li key={i} className="chapter">
                   <Link href={`/chapters/${chapter.number}`}>
-                    <span>
-                      {chapter.number}. {chapter.text}
-                    </span>
+                    <ChapterLink chapter={chapter} />
                   </Link>
                 </li>
               ))}
