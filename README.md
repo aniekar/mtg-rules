@@ -1,34 +1,20 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Magic: The Gathering Comprehensive Rules
 
-## Getting Started
+A Next.js app done based on Reaktor's fall 2021 assignment brief for junior devs. The task was to build an interactive, hyperlinked rulebook application for Magic: The Gathering. The app can be accessed at [http://mtg-rules.vercel.app](http://mtg-rules.vercel.app).
 
-First, run the development server:
+## Requirements
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+- Fetch the [rules](https://media.wizards.com/2021/downloads/MagicCompRules%2020210419.txt) and parse them programmatically
+- Have a web frontend
+- Include a Table of Contents with hyperlinks to chapters containing game rules
+- Display the selected chapter beside the Table of Contents, containing all rules in that chapter
+- Include a search box for filtering the rules displayed on the page
+- Ignore any other sections in the input file, except for the actual numbered rules.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## About the solution 
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+The solution utilizes the static site generation features of Next.js which provides a smooth and fast user experience. However, if the rules change the site would have to be built again. Another option would be to enable a periodical revalidation of the data, but currently this is set to false (my assumption is that these rules do not change that often). 
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+The styling of the app could still be greatly improved, but as that was not the main focus of the assignment I decided not to spend too much time on that. 
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+The chevrons used in the foldable menu sections were modified from [https://codepen.io/stepher/pen/yLOaEOP](https://codepen.io/stepher/pen/yLOaEOP).
