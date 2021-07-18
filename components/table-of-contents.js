@@ -9,6 +9,8 @@ const ChapterLink = forwardRef(({ onClick, href, chapter }, ref) => {
   );
 });
 
+ChapterLink.displayName = 'ChapterLink';
+
 export default function TableOfContents({ contents }) {
   return (
     <div className="tableOfContents">
@@ -20,7 +22,7 @@ export default function TableOfContents({ contents }) {
             <ul className="chapterList">
               {section.chapters.map((chapter, i) => (
                 <li key={i} className="chapter">
-                  <Link href={`/chapters/${chapter.number}`}>
+                  <Link href={`/chapters/${chapter.number}`} passHref>
                     <ChapterLink chapter={chapter} />
                   </Link>
                 </li>
