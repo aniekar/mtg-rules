@@ -52,7 +52,7 @@ export default function TableOfContents({ contents }) {
   return (
     <div className="tableOfContents">
       <h2>Table of Contents</h2>
-      <ul>
+      <ul className="sectionList">
         {contents.map((section, i) => (
           <FoldableSection key={i} section={section} />
         ))}

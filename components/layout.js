@@ -12,11 +12,6 @@ function Layout(props) {
       </Head>
       <header>
         <h1>Magic: The Gathering Comprehensive Rules</h1>
-        {/* <FilterForm
-          filter={filter}
-          handleFilterChange={handleFilterChange}
-          clearFilter={clearFilter}
-        /> */}
       </header>
       <main>
         <div className="flexContainer">{props.children}</div>

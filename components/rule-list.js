@@ -34,13 +34,15 @@ export default function RuleList({ rules, chapter }) {
           {chapter.number}. {chapter.text}
         </h2>
       )}
-            <FilterForm
-        filter={filter}
-        clearFilter={clearFilter}
-        handleFilterChange={handleFilterChange}
-      />
       {rules && (
-        <ul>
+        <FilterForm
+          filter={filter}
+          clearFilter={clearFilter}
+          handleFilterChange={handleFilterChange}
+        />
+      )}
+      {rules && (
+        <ul className="ruleList">
           {rulesToShow.map((rule, i) => (
             <Rule key={i} rule={rule} searchTerm={filter} />
           ))}

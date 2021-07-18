@@ -7,7 +7,7 @@ const FilterForm = ({ filter, handleFilterChange, clearFilter }) => {
           onChange={handleFilterChange}
           placeholder="Filter"
         ></input>
-        <button type="button" onClick={clearFilter}>
+        <button type="button" onClick={clearFilter} className="clearButton">
           Clear
         </button>
       </form>
