@@ -1,4 +1,4 @@
-# Magic: The Gathering Comprehensive Rules
+# Magic: The Gathering Rulebook
 
 A Next.js app done based on Reaktor's fall 2021 assignment brief for junior devs. The task was to build an interactive, hyperlinked rulebook application for Magic: The Gathering. The app can be accessed at [http://mtg-rules.vercel.app](http://mtg-rules.vercel.app).
 
